@@ -1,0 +1,44 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+from sklearn.cluster import KMeans
+
+banknote = pd.read_csv('Banknote-authentication-dataset-.csv')
+bank_mean = np.mean(banknote)
+std_dev = np.std(banknote)
+
+ellipse = patches.Ellipse([bank_mean[0], bank_mean[1]], std_dev[0]*1, std_dev[1]*1, alpha = 0.8)
+fig,graph = plt.subplots()
+
+first = np.column_stack((v1, v2))
+
+km_res = KMeans(n_clusters=2).fit(first)
+clu = km_res.cluster_centers_
+plt.scatter(clu[:,0], clu[:,1], c ='red', marker='s')
+
+#a = graph.scatter(banknote['V1'], banknote['V2'], color='g')
+#b = graph.add_patch(ellipse)
+c = plt.scatter(clu[:,0], clu[:,1], c ='red', marker='s')
+
+plt.xlabel('V1')
+plt.ylabel('V2')
+#banknote.duplicated()
+#plt.legend([a,b,c], ['data', 'mean&std', 'k-mean']) 
+#plt.show()
+
+V1_V2 = np.column_stack((banknote['V1'], banknote['V2']))
+
+from sklearn.cluster import KMeans
+km_res = KMeans(n_clusters=2)
+km_res.fit(V1_V2)
+km_res.labels_
+y_kmeans = km_res.labels_ #km_res.predict(V1_V2)
+
+#plt.scatter(banknote['V1'], banknote['V2'])
+d = plt.scatter(V1_V2[:,0], V1_V2[:,1], c=y_kmeans, cmap='viridis')
+c = plt.scatter(clu[:,0], clu[:,1], c ='red', marker='s')
+plt.xlabel('V1')
+plt.ylabel('V2')
+plt.legend([d,c], ['k-mean result', 'k-mean points']) 
+plt.show()
