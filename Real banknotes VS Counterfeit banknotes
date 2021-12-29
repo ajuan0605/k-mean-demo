@@ -67,3 +67,16 @@ plt.title('k-mean result')
 plt.savefig('figure.png')
 plt.show()
 #The results is stable, and both clusters are classified by the mean point.
+
+#Add the column "KMeans" in csv
+banknote['KMeans'] = km_res.labels_
+banknote.to_csv("Banknote-authentication-dataset-.csv", index=False)
+plt.scatter(normed_V1,normed_V2, c=banknote['KMeans'], cmap='coolwarm')
+plt.scatter(centers[:,0], centers[:,1], c ='orange', s=300, marker='*', label = 'centroid')
+plt.scatter(V1_mean, V2_mean, s=100 ,c="lightblue", label = 'mean')
+plt.xlabel('V1')
+plt.ylabel('V2')
+plt.legend()
+plt.title('k-mean result')
+plt.savefig('figure.png')
+plt.show()
