@@ -4,41 +4,30 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from sklearn.cluster import KMeans
 
+#data processing
 banknote = pd.read_csv('Banknote-authentication-dataset-.csv')
+V1 = banknote['V1']
+V2 = banknote['V2']
 bank_mean = np.mean(banknote)
 std_dev = np.std(banknote)
-
-ellipse = patches.Ellipse([bank_mean[0], bank_mean[1]], std_dev[0]*1, std_dev[1]*1, alpha = 0.8)
+bank_max = np.max(banknote)
+bank_min = np.min(banknote)
+#normalistation
+normed_V1 = (V1 - bank_min[0])/(bank_max[0] - bank_min[0])
+normed_V2 = (V2 - bank_min[1])/(bank_max[1] - bank_min[1])
+V1_mean = normed_V1.mean()
+V2_mean = normed_V2.mean()
+V1_std = normed_V1.std()
+V2_std = normed_V2.std()
+#calculate the standard deviation and using patches library draw an ellipse
+ellipse = patches.Ellipse([V1_mean, V2_mean], V1_std*2, V2_std*2, alpha = 0.8)
+#picture
 fig,graph = plt.subplots()
-
-first = np.column_stack((v1, v2))
-
-km_res = KMeans(n_clusters=2).fit(first)
-clu = km_res.cluster_centers_
-plt.scatter(clu[:,0], clu[:,1], c ='red', marker='s')
-
-#a = graph.scatter(banknote['V1'], banknote['V2'], color='g')
-#b = graph.add_patch(ellipse)
-c = plt.scatter(clu[:,0], clu[:,1], c ='red', marker='s')
-
+fig_data = graph.scatter(normed_V1, normed_V2, c="lightblue")
+fig_ellipse = graph.add_patch(ellipse)
+fig_mean = graph.scatter(V1_mean, V2_mean, s=100 ,c="red")
+plt.legend([fig_data, fig_ellipse, fig_mean], ['data', 'ellipse', 'mean'])
+plt.title(' Real banknotes VS Counterfeit banknotes')
 plt.xlabel('V1')
 plt.ylabel('V2')
-#banknote.duplicated()
-#plt.legend([a,b,c], ['data', 'mean&std', 'k-mean']) 
-#plt.show()
-
-V1_V2 = np.column_stack((banknote['V1'], banknote['V2']))
-
-from sklearn.cluster import KMeans
-km_res = KMeans(n_clusters=2)
-km_res.fit(V1_V2)
-km_res.labels_
-y_kmeans = km_res.labels_ #km_res.predict(V1_V2)
-
-#plt.scatter(banknote['V1'], banknote['V2'])
-d = plt.scatter(V1_V2[:,0], V1_V2[:,1], c=y_kmeans, cmap='viridis')
-c = plt.scatter(clu[:,0], clu[:,1], c ='red', marker='s')
-plt.xlabel('V1')
-plt.ylabel('V2')
-plt.legend([d,c], ['k-mean result', 'k-mean points']) 
 plt.show()
