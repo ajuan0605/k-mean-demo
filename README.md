@@ -1,4 +1,4 @@
 # k-mean-test
 Used k-mean to analysis the banknote data set.
-data:"Banknote-authentication-dataset-.csv"
-python3:"test"
+Load data:"Banknote-authentication-dataset-.csv"
+Use python3 and run:"Real banknotes VS Counterfeit banknotes"
