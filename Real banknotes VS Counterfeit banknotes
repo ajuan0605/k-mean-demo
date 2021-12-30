@@ -80,3 +80,30 @@ plt.legend()
 plt.title('k-mean result')
 plt.savefig('figure.png')
 plt.show()
+
+#Correct labels result
+df = pd.read_csv('data_with_labels.csv')
+df_v1 = df['V1']
+df_v2 = df['V2']
+df_class = df['Class']
+df_mean = np.mean(df)
+df_std_dev = np.std(df)
+df_max = np.max(df)
+df_min = np.min(df)
+#normalistation
+df_normed_v1 = (df_v1 - df_min[0])/(df_max[0] - df_min[0])
+df_normed_v2 = (df_v2 - df_min[1])/(df_max[1] - df_min[1])
+df_v1_mean = df_normed_v1.mean()
+df_v2_mean = df_normed_v2.mean()
+df_v1_std = df_normed_v1.std()
+df_v2_std = df_normed_v2.std()
+
+df_v1_v2 = np.column_stack((df_normed_v1, df_normed_v2))
+scatter = plt.scatter(df_normed_v1, df_normed_v2, c=df_class, cmap='coolwarm')
+plt.scatter(centers[:,0], centers[:,1], c="orange", s=300, marker='*')
+plt.xlabel('V1')
+plt.ylabel('V2')
+#plt.legend()
+plt.title('correct result')
+plt.savefig('figure_correct.png')
+plt.show()
