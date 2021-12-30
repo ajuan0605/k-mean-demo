@@ -80,6 +80,32 @@ plt.legend()
 plt.title('k-mean result')
 plt.savefig('figure.png')
 plt.show()
+#loop_nine
+from sklearn.datasets.samples_generator import (make_blobs,
+                                                make_circles,
+                                                make_moons)
+from sklearn.cluster import KMeans, SpectralClustering
+
+n_iter = 9
+fig, ax = plt.subplots(3, 3, figsize=(16, 16))
+ax = np.ravel(ax)
+centers = []
+for i in range(n_iter):
+    # Run local implementation of kmeans
+    km = KMeans(n_clusters=2,
+                max_iter=3)
+    labels = km_res.fit_predict(V1_V2)
+    centroids = km_res.cluster_centers_
+    centers.append(centroids)
+    ax[i].scatter(V1_V2[labels == 0, 0], V1_V2[labels == 0, 1],
+                   label='cluster 1')
+    ax[i].scatter(V1_V2[labels == 1, 0], V1_V2[labels == 1, 1],
+                   label='cluster 2')
+    ax[i].scatter(centroids[:, 0], centroids[:, 1],
+                  c='r', marker='*', s=300, label='centroid')
+    ax[i].legend(loc='lower right')
+    ax[i].set_aspect('equal')
+plt.tight_layout();
 
 #Correct labels result
 df = pd.read_csv('data_with_labels.csv')
