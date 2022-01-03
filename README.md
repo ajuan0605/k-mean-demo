@@ -1,10 +1,10 @@
-K-Means Clustering Project
+#K-Means Clustering Project
 
-Purpose
+###Purpose
 
 The purpose of this project is to build a K-Means clustering model to detect the banknote is genuine or not, it’s very helpful for Client OOO to check the authenticity of banknotes.
 
-Data set
+###Data set
 
 The data set was downloaded from OpenML. The visualization result is shown in the figure below.
 
@@ -12,7 +12,7 @@ The data set was downloaded from OpenML. The visualization result is shown in th
 
 •V2 is skewness of this data set.
 
-Methods
+###Methods
 
 •Used Numpy to calculate the mean value and the standard deviation value of “Variance” and “Skewness”. Find the minimum and maximum value, then we can use the formula to calculate normalized versions of the data set.
 
@@ -20,7 +20,7 @@ Methods
 
 •Try more times until the model is stable.
 
-Summary of the results
+###Summary of the results
 
 The number of classification results for genuine banknotes was 765(Green), and the number of classification results for forged banknotes was 607(Blue). 
 
@@ -28,7 +28,7 @@ The visualization result is shown in the figure "K-mean result".
 
 I used the loop function to compare the K-mean predict result(fig.K-mean result) with the correct result data(fig. correct result). My result's calculation is as high as 96%.
 
-Recommend
+###Recommend
 
 I am very honored to be able to design this model for Client OOO to make a distinction with genuine and forged banknotes.
 
